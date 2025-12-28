@@ -1,5 +1,10 @@
 # MPC study 발표자료
 
+## 배포된 링크
+
+- [slides.html](https://mpc-study.juhyung.dev/slides.html)
+- [cheat sheet](https://mpc-study.juhyung.dev/cheatsheet.html)
+
 ## 발표자료 빌드 방법
 
 ```sh
