@@ -1,0 +1,18 @@
+{
+  "name": "mpc-study",
+  "private": true,
+  "scripts": {
+    "dev:slides": "bunx @marp-team/marp-cli@latest -s ./ --html",
+    "build:cheatsheet": "bun run ./cheatsheet-generator.ts",
+    "dev:cheatsheet": "bun --watch ./cheatsheet-generator.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "marked": "^17.0.1"
+  }
+}
