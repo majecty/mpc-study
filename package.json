@@ -4,6 +4,7 @@
   "scripts": {
     "dev:slides": "bunx @marp-team/marp-cli@latest -s ./ --html",
     "build:cheatsheet": "bun run ./cheatsheet-generator.ts",
+    "build:slides": "bunx @marp-team/marp-cli@latest  ./slides.md --html",
     "dev:cheatsheet": "bun --watch ./cheatsheet-generator.ts"
   },
   "devDependencies": {
