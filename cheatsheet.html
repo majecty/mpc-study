@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 1px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow: auto;
+        }
+        .card-wide {
+            grid-column: span 2;
+        }
+        /* Basic Markdown styling */
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 0.1em;
+            margin-bottom: 0.1em;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        ul, ol {
+            margin-top: 0.1em;
+            margin-bottom: 0.1em;
+            padding-left: 20px;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+            });
+        </script>
+        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+<body>
+    <div class="card"><h1>MPC 스터디 공유 Cheat Sheet</h1>
+</div><div class="card"><ul>
+<li><strong>비밀키</strong>: 소유자만 아는 정보</li>
+<li><strong>공개키</strong>: 모두에게 공개하는 정보</li>
+<li>보통 비밀키 알면 공개키 생성 가능</li>
+</ul>
+</div><div class="card"><ul>
+<li><strong>비밀키</strong>로 서명 생성</li>
+<li><strong>공개키</strong>로 서명 검증</li>
+<li><strong>서명</strong>: 비밀키 소유자가 인정한 사실. 위조 불가</li>
+</ul>
+</div><div class="card"><ul>
+<li><strong>지갑 주소</strong> = $hash(공개키)$</li>
+<li><strong>비밀키</strong>로 트랜잭션을 <strong>서명</strong>할 수 있음</li>
+</ul>
+</div><div class="card"><h3>MPC TSS</h3>
+<ul>
+<li><strong>MPC</strong> = Multi Party Computation</li>
+<li><strong>TSS</strong> = Threshold Signature Scheme</li>
+<li><strong>MPC TSS</strong> = 여러 참여자가 함께 하나의 서명을 만드는 방법.</li>
+</ul>
+</div><div class="card"><h3>Elliptic Curve</h3>
+<ul>
+<li>예시) $y^2\ mod\ p = (x^3 + 7)\ mod\ p$</li>
+<li><strong>비밀키</strong>는 임의의 상수 $k$</li>
+<li><strong>공개키</strong>는 $k \cdot G$</li>
+<li>점 <strong>G</strong>는 커브마다 다르게 정해진 점</li>
+</ul>
+</div><div class="card"><h3>Diffie-Hellman Key Exchange</h3>
+<ul>
+<li><em>alice</em> : a, $A = a \cdot G$ 생성</li>
+<li><em>bob</em> : b, $B = b \cdot G$ 생성</li>
+<li><em>alice</em> ,  <em>bob</em>  서로 A와 B 공유</li>
+<li><em>alice</em> 는 B 를 받아서 $a \cdot B = a \cdot b \cdot G$ 생성</li>
+<li><em>bob</em> 은 A를 받아서 $b \cdot A = b \cdot a \cdot G$ 생성</li>
+<li>둘은 둘만 아는 공유 정보 생성</li>
+</ul>
+</div><div class="card"><h3>Schnorr Signature</h3>
+<ul>
+<li>비밀키 $x$, 공개키 $X = x \cdot G$</li>
+<li>랜덤한 $k$ 고르기</li>
+<li>$K = k \cdot G$</li>
+<li>$e = hash(K \vert\vert m)$</li>
+<li>$s = k + e \cdot x$</li>
+<li>$서명 = (s, e)$</li>
+</ul>
+</div><div class="card"><h3>Schnorr Signature 대충</h3>
+<ul>
+<li>k = 랜덤. x = 비밀키</li>
+<li>$s = k + x$</li>
+<li>$s \cdot G = k \cdot G + x \cdot G$ </li>
+<li>검증하는 사람은 s, K, G 만 앎</li>
+<li>K, G만 가지고 s 값 생성 불가능</li>
+</ul>
+</div><div class="card"><h3>ECDSA Signature</h3>
+<ul>
+<li>비밀키 $x$ 공개키 $X = x \cdot G$</li>
+<li>랜덤한 $k$ 생성</li>
+<li>$K = k \cdot G$</li>
+<li>$s = k^{-1} \cdot (hash(m) + K_x \cdot x)$</li>
+<li>$서명 = (K_x, s)$</li>
+</ul>
+</div><div class="card"><h3>ECDSA signature 대충</h3>
+<ul>
+<li>k = 랜덤. x = 비밀키</li>
+<li>$s = k^{-1} \cdot x$</li>
+<li>$s \cdot K = k^{-1} \cdot x \cdot k \cdot G$
+ $= x \cdot G = X$ </li>
+<li>검증하는 사람은 s, K, G 만 암</li>
+<li>K, G만 가지고 s 값 생성 불가능</li>
+</ul>
+</div><div class="card"><h3>Schnorr vs ECDSA TSS</h3>
+<ul>
+<li><strong>Schnorr</strong>: 서명의 덧셈이 가능 → 쉬운 MPC<ul>
+<li>$s = s_a + s_b$
+$= (k_a + e \cdot x_a) + (k_b + e \cdot x_b)$</li>
+</ul>
+</li>
+<li><strong>ECDSA</strong>: 덧셈 불가능 → 복잡한 MPC 필요<ul>
+<li>$\frac{1}{k_a + k_b}$를 구할 방법이 없음</li>
+</ul>
+</li>
+</ul>
+</div><div class="card card-wide"><h3>DKLs18 핵심 아이디어</h3>
+<ul>
+<li>$k = k_a \cdot k_b$, $x = x_a \cdot x_b$</li>
+<li>$$s = hash(m) \cdot (\frac{1}{k_a} \cdot \frac{1}{k_b}) +  K_x \cdot \frac{x_a}{k_a} \cdot \frac{x_a}{k_b}$$</li>
+<li>OT 기반 곱셈으로 비밀 정보 노출 없이 곱셈</li>
+</ul>
+</div><div class="card"><h3>OT = Oblivious Transfer</h3>
+<ul>
+<li>다양한 구현체 있음.</li>
+</ul>
+</div><div class="card"><h3>OT 과정</h3>
+<ul>
+<li><em>alice</em> 가 $m_0$ 와 $m_1$ 를 생성</li>
+<li><em>bob</em> 은 둘 중 하나를 고름. 이를 $m_c$ 라고 함</li>
+</ul>
+</div><div class="card"><h3>OT 결과</h3>
+<ul>
+<li><em>alice</em> 는 <em>bob</em> 이 무얼 가져갔는지 모름</li>
+<li><em>bob</em> 은 자신이 갖지 못한 것이 무엇인지 모름</li>
+</ul>
+</div><div class="card"><h3>OT 변형 과정</h3>
+<ul>
+<li><em>alice</em> 가 랜덤한 $f$ 생성</li>
+<li><em>alice</em> 가 $m_0 = -f$ , $m_1 = \delta - f$ 생성</li>
+<li><em>bob</em> 이 자신이 가진 $c$ 에 따라 $m_c$ 선택</li>
+</ul>
+</div><div class="card"><h3>OT 변형 결과</h3>
+<ul>
+<li><em>alice</em> 가 가진 $f$ 와 <em>bob</em> 이 가진 $m_c$ 를 더하면 $f + m_c = c \cdot \delta$</li>
+<li>$f$ 와 $m_c$ 는 공개되어도 안전.</li>
+</ul>
+</div><div class="card card-wide"><h3>OT를 통한 곱셈</h3>
+<ul>
+<li>목적: $i_a \cdot i_b$ 를 서로 정보를 숨긴채 곱셈.</li>
+<li>$(2 \cdot i_a) \cdot i_{b0}$ 을 OT로 곱셈. $i_{b0}$ 은 $i_b$ 의 0번째 비트</li>
+<li>$(4 \cdot i_a) \cdot i_{b1}$ 을 OT로 곱셈. $i_{b1}$ 은 $i_b$ 의 1번째 비트</li>
+<li>...</li>
+<li>$(2^n \cdot i_a) \cdot i_{bn}$ 을 OT로 곱셈. $i_{bn}$ 은 $i_b$ 의 n번째 비트</li>
+<li>위의 값들을 다 더하면 $i_a \cdot i_b$</li>
+</ul>
+</div><div class="card"><h3>Elliptic curve OT 예시 - setup</h3>
+<ul>
+<li>Alice: $A = a \cdot G$ 생성하고 Bob에게 전달</li>
+<li>Bob: 랜덤 $b$, $c \in {0,1}$ 생성. $B&#39; = b \cdot G + c \cdot A$ 를 Alice에게 전달</li>
+</ul>
+</div><div class="card card-wide"><h3>Elliptic curve OT 예시 - key 생성</h3>
+<ul>
+<li>Alice: $k_0 = hash(a \cdot B&#39;)$, $k_1 = hash(a \cdot (B&#39; - A))$ 계산</li>
+<li>Bob: $k_c = hash(b \cdot A)$ 계산</li>
+<li>if c == 0 than $k_c = k_0 = hash(a \cdot b \cdot G)$</li>
+<li>if c == 1 than $k_c = k_1 = hash(a \cdot b \cdot G)$</li>
+</ul>
+</div><div class="card"><h3>Elliptic curve OT 예시 - transfer</h3>
+<ul>
+<li>Alice: $e_0 = encrypt_{k_0}(m_0)$, $e_1 = encrypt_{k_1}(m_1)$ 를 Bob에게 전달</li>
+<li>Bob: $k_c$로 $e_c$를 복호화해서 $m_c$ 획득</li>
+</ul>
+</div><div class="card"><h3>Elliptic curve OT 예시 - 결론</h3>
+<ul>
+<li>Alice: $m_0$, $m_1$을 암호화해서 Bob에게 보냄</li>
+<li>Bob은 자신이 골랐던 c에 맞게 $m_c$ 만 복호화 가능</li>
+</ul>
+</div><div class="card"><h3>DKLs18 vs DKLs23</h3>
+<ul>
+<li><strong>DKLs23</strong>: t of n 지원, 3라운드 통신, 사전 준비 단계</li>
+</ul>
+</div>
+</body>
+</html>
